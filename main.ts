@@ -1,3 +1,6 @@
+function doSomething () {
+    info.setScore(0)
+}
 let mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
