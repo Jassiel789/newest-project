@@ -143,6 +143,8 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         `)
 })
+let row = 0
+let col = 0
 let jump = 0
 let mySprite: Sprite = null
 scene.setBackgroundColor(14)
@@ -170,9 +172,9 @@ controller.moveSprite(mySprite, 100, 0)
 mySprite.ay = 300
 mySprite.setStayInScreen(true)
 jump = 0
-game.onUpdate(function () {
-	
-})
-game.onUpdateInterval(500, function () {
-	
+game.onUpdateInterval(100, function () {
+    col = randint(0, 50)
+    row = randint(5, 11)
+    tiles.setTileAt(tiles.getTileLocation(col, row), sprites.castle.tilePath5)
+    tiles.setWallAt(tiles.getTileLocation(col, row), true)
 })
