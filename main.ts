@@ -170,3 +170,6 @@ controller.moveSprite(mySprite, 100, 0)
 mySprite.ay = 300
 mySprite.setStayInScreen(true)
 jump = 0
+game.onUpdateInterval(500, function () {
+	
+})
