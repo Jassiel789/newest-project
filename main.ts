@@ -533,7 +533,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
 function rdmntiles () {
     for (let row2 = 0; row2 <= 10; row2++) {
         for (let col2 = 0; col2 <= 50; col2++) {
-            if (Math.percentChance(20)) {
+            if (Math.percentChance(10)) {
                 tiles.setTileAt(tiles.getTileLocation(col2, row2), sprites.castle.tilePath5)
                 tiles.setWallAt(tiles.getTileLocation(col2, row2), true)
             } else {
