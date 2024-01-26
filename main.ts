@@ -194,7 +194,7 @@ scene.onHitWall(SpriteKind.Player, function (sprite, location) {
         jump = 0
     }
     if (mySprite.isHittingTile(CollisionDirection.Left) || mySprite.isHittingTile(CollisionDirection.Right)) {
-        mySprite.vy = 30
+        mySprite.vy = 0
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -530,11 +530,19 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         `)
 })
-function doSomething (bool: boolean, mySprite: Sprite) {
-	
+function rdmntiles () {
+    for (let row2 = 0; row2 <= 10; row2++) {
+        for (let col2 = 0; col2 <= 50; col2++) {
+            if (Math.percentChance(20)) {
+                tiles.setTileAt(tiles.getTileLocation(col2, row2), sprites.castle.tilePath5)
+                tiles.setWallAt(tiles.getTileLocation(col2, row2), true)
+            } else {
+                tiles.setTileAt(tiles.getTileLocation(col2, row2), assets.tile`myTile`)
+                tiles.setWallAt(tiles.getTileLocation(col2, row2), false)
+            }
+        }
+    }
 }
-let row = 0
-let col = 0
 let right = 0
 let left = 0
 let jump = 0
@@ -566,6 +574,7 @@ mySprite.setStayInScreen(true)
 jump = 0
 left = 0
 right = 0
+let rows = 5
 game.onUpdate(function () {
     if (controller.left.isPressed() && controller.right.isPressed()) {
     	
@@ -577,9 +586,9 @@ game.onUpdate(function () {
         left = 0
     }
 })
-game.onUpdateInterval(100, function () {
-    col = randint(0, 50)
-    row = randint(5, 11)
-    tiles.setTileAt(tiles.getTileLocation(col, row), sprites.castle.tilePath5)
-    tiles.setWallAt(tiles.getTileLocation(col, row), true)
+game.onUpdateInterval(2000, function () {
+    rdmntiles()
+})
+game.onUpdateInterval(1000, function () {
+	
 })
