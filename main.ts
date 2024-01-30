@@ -530,11 +530,51 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         `)
 })
+controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
+    mySprite.setImage(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . 1 1 1 1 1 . . . . . . 
+        . . f . f f f f f f . . . . . . 
+        . f . f . 1 1 1 f 1 . . . . . . 
+        . . . . . 1 1 1 1 1 . . . . . . 
+        . . . . . . 1 1 1 . . . . . . . 
+        . . . . . . 1 1 1 . . . . . . . 
+        . . . . . . 1 . 1 . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `)
+})
+controller.player2.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
+    mySprite.setImage(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . 1 1 1 1 1 . . . . . 
+        . . . . . . f f f f f f . f . . 
+        . . . . . . 1 f 1 1 1 . f . f . 
+        . . . . . . 1 1 1 1 1 . . . . . 
+        . . . . . . . 1 1 1 . . . . . . 
+        . . . . . . . 1 1 1 . . . . . . 
+        . . . . . . . 1 . 1 . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `)
+})
 function rdmntiles () {
-    for (let row2 = 0; row2 <= 10; row2++) {
-        for (let col2 = 0; col2 <= 50; col2++) {
-            if (Math.percentChance(20)) {
-                tiles.setTileAt(tiles.getTileLocation(col2, row2), sprites.castle.tilePath5)
+    for (let row2 = 0; row2 <= 40; row2++) {
+        for (let col2 = 0; col2 <= 40; col2++) {
+            if (Math.percentChance(10)) {
+                tiles.setTileAt(tiles.getTileLocation(col2, row2), assets.tile`myTile3`)
                 tiles.setWallAt(tiles.getTileLocation(col2, row2), true)
             } else {
                 tiles.setTileAt(tiles.getTileLocation(col2, row2), assets.tile`myTile`)
@@ -571,6 +611,25 @@ scene.cameraFollowSprite(mySprite)
 controller.moveSprite(mySprite, 100, 0)
 mySprite.ay = 300
 mySprite.setStayInScreen(true)
+let _2 = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . 1 1 1 1 1 . . . . . . 
+    . . f . f f f f f f . . . . . . 
+    . f . f . 1 1 1 f 1 . . . . . . 
+    . . . . . 1 1 1 1 1 . . . . . . 
+    . . . . . . 1 1 1 . . . . . . . 
+    . . . . . . 1 1 1 . . . . . . . 
+    . . . . . . 1 . 1 . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
+controller.player2.moveSprite(_2)
 jump = 0
 left = 0
 right = 0
