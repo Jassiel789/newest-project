@@ -1,3 +1,11 @@
+scene.onHitWall(SpriteKind.Player, function (sprite, location) {
+    if (!(mySprite.isHittingTile(CollisionDirection.Top))) {
+        jump = 0
+    }
+    if (mySprite.isHittingTile(CollisionDirection.Left) || mySprite.isHittingTile(CollisionDirection.Right)) {
+        mySprite.vy = 0
+    }
+})
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     jump += 1
     if (jump <= 2) {
@@ -187,14 +195,6 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
             false
             )
         }
-    }
-})
-scene.onHitWall(SpriteKind.Player, function (sprite, location) {
-    if (!(mySprite.isHittingTile(CollisionDirection.Top))) {
-        jump = 0
-    }
-    if (mySprite.isHittingTile(CollisionDirection.Left) || mySprite.isHittingTile(CollisionDirection.Right)) {
-        mySprite.vy = 0
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -530,11 +530,11 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         `)
 })
-function rdmntiles () {
-    for (let row2 = 0; row2 <= 10; row2++) {
+function rdmntiles (num: number) {
+    for (let row2 = 0; row2 <= 50; row2++) {
         for (let col2 = 0; col2 <= 50; col2++) {
-            if (Math.percentChance(20)) {
-                tiles.setTileAt(tiles.getTileLocation(col2, row2), sprites.castle.tilePath5)
+            if (Math.percentChance(50 - 5 * num)) {
+                tiles.setTileAt(tiles.getTileLocation(col2, row2), list._pickRandom())
                 tiles.setWallAt(tiles.getTileLocation(col2, row2), true)
             } else {
                 tiles.setTileAt(tiles.getTileLocation(col2, row2), assets.tile`myTile`)
@@ -543,6 +543,7 @@ function rdmntiles () {
         }
     }
 }
+let list: Image[] = []
 let right = 0
 let left = 0
 let jump = 0
@@ -567,6 +568,7 @@ mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
+mySprite.y = 700
 scene.cameraFollowSprite(mySprite)
 controller.moveSprite(mySprite, 100, 0)
 mySprite.ay = 300
@@ -575,6 +577,47 @@ jump = 0
 left = 0
 right = 0
 let rows = 5
+list = [img`
+    . . a a f f f f c a . . 
+    . f f a f f f f c a f . 
+    f f f f f f f f a f f c 
+    f f f c c f f f f f f c 
+    c f f c a a f f f f f f 
+    c f f a a a f c f f f c 
+    f f f f f f c a a a a a 
+    a f f f f f a a c c f f 
+    a f f f f f c a f f f f 
+    f f a a f f f f f f a f 
+    . c c c f f f f f f f . 
+    . . f f f f f f f f . . 
+    `, img`
+    6 6 f f f 6 6 b b 6 f f 
+    6 f b b f b f 6 b b 6 f 
+    6 b b 6 6 6 f f 6 6 6 b 
+    f b 6 b 6 6 6 b 6 b 6 b 
+    f 6 b 6 b b 6 f 6 b 6 f 
+    f 6 6 6 b 6 6 6 6 6 f f 
+    b 6 6 b b f 6 6 6 6 f 6 
+    f 6 6 b b 6 6 b 6 f f 6 
+    6 f 6 6 b 6 6 b 6 f 6 6 
+    6 f f 6 6 b 6 6 f f 6 6 
+    6 6 f f 6 6 6 b b 6 6 6 
+    b 6 6 6 f f f 6 6 6 6 6 
+    `, img`
+    . f f f f f 2 2 2 f f . 
+    . f f f f f f 2 f f 4 4 
+    f f f f 2 f 2 f f 4 4 5 
+    f . f f 2 f 2 f 5 5 5 5 
+    f f f 2 2 f 2 2 2 2 2 2 
+    f f f f f 2 2 f f f f f 
+    f f f f f f 2 2 4 4 4 4 
+    f f . . f f f 2 5 5 5 5 
+    f f f f f f f f 2 2 2 5 
+    f f f f . f f f 2 2 2 2 
+    . f f f f f f f f 2 2 2 
+    . f f f f f f f f f 2 . 
+    `]
+let level = game.askForNumber("Pick difficulty 1-9", 1)
 game.onUpdate(function () {
     if (controller.left.isPressed() && controller.right.isPressed()) {
     	
@@ -587,8 +630,5 @@ game.onUpdate(function () {
     }
 })
 game.onUpdateInterval(2000, function () {
-    rdmntiles()
-})
-game.onUpdateInterval(1000, function () {
-	
+    rdmntiles(level)
 })
